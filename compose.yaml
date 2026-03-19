@@ -1,0 +1,25 @@
+services:
+  heptapod:
+    image: heptapod/heptapod:17.5.4
+    container_name: heptapod
+    restart: unless-stopped
+    hostname: localhost
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'http://localhost'
+        gitlab_rails['gitlab_shell_ssh_port'] = 2222
+        # Disable features you don't need for local practice
+        prometheus_monitoring['enable'] = false
+    ports:
+      - "80:80"       # Web UI
+      - "2222:22"     # SSH for hg push/pull (avoids conflict with your system SSH)
+    volumes:
+      - heptapod-config:/etc/gitlab
+      - heptapod-logs:/var/log/gitlab
+      - heptapod-data:/var/opt/gitlab
+    shm_size: 256m
+
+volumes:
+  heptapod-config:
+  heptapod-logs:
+  heptapod-data:
