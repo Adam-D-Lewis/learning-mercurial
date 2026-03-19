@@ -9,8 +9,11 @@ A local GitHub-like server for practicing Mercurial push/pull, running in Docker
   ```bash
   pixi global install mercurial --with hg-evolve
   ```
-- Enable the evolve extension in `~/.hgrc`:
+- Configure `~/.hgrc`:
   ```ini
+  [ui]
+  username = Your Name <your@email.com>
+
   [extensions]
   evolve =
   ```
