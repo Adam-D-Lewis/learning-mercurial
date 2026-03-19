@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mercurial Cheat Sheet</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; background: #1a1a2e; color: #e0e0e0; padding: 1rem 1.5rem; line-height: 1.35; }
+  h1 { text-align: center; color: #00d4ff; margin-bottom: 0.75rem; font-size: 1.4rem; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; max-width: 1400px; margin: 0 auto; }
+  .card { background: #16213e; border-radius: 8px; padding: 0.6rem 0.75rem; border: 1px solid #0f3460; }
+  .card h2 { color: #00d4ff; font-size: 0.8rem; margin-bottom: 0.4rem; border-bottom: 1px solid #0f3460; padding-bottom: 0.25rem; text-transform: uppercase; letter-spacing: 0.5px; }
+  table { width: 100%; border-collapse: collapse; }
+  td { padding: 0.15rem 0; vertical-align: top; font-size: 0.75rem; }
+  td:first-child { white-space: nowrap; padding-right: 0.75rem; }
+  code { background: #0a0a1a; color: #7fdbca; padding: 0.05rem 0.3rem; border-radius: 3px; font-size: 0.72rem; font-family: "JetBrains Mono", "Fira Code", monospace; }
+  .desc { color: #aaa; }
+  .note { border-left: 2px solid #e94560; padding: 0.2rem 0.5rem; margin-top: 0.35rem; font-size: 0.7rem; color: #bbb; }
+  .note strong { color: #e94560; }
+</style>
+</head>
+<body>
+
+<h1>Mercurial Cheat Sheet</h1>
+
+<div class="grid">
+
+  <div class="card">
+    <h2>Getting Started</h2>
+    <table>
+      <tr><td><code>hg clone &lt;url&gt;</code></td><td class="desc">Clone a repo</td></tr>
+      <tr><td><code>hg init</code></td><td class="desc">Create new repo</td></tr>
+      <tr><td><code>hg status</code></td><td class="desc">Show changed files</td></tr>
+      <tr><td><code>hg summary</code></td><td class="desc">Working directory summary</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>Making Changes</h2>
+    <table>
+      <tr><td><code>hg add &lt;file&gt;</code></td><td class="desc">Track a new file</td></tr>
+      <tr><td><code>hg remove &lt;file&gt;</code></td><td class="desc">Untrack and delete</td></tr>
+      <tr><td><code>hg forget &lt;file&gt;</code></td><td class="desc">Untrack but keep file</td></tr>
+      <tr><td><code>hg commit -m "msg"</code></td><td class="desc">Commit changes</td></tr>
+      <tr><td><code>hg addremove</code></td><td class="desc">Track new, untrack missing</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>Viewing History</h2>
+    <table>
+      <tr><td><code>hg log</code></td><td class="desc">Full history</td></tr>
+      <tr><td><code>hg log -G</code></td><td class="desc">Graph view</td></tr>
+      <tr><td><code>hg log -r .</code></td><td class="desc">Current changeset</td></tr>
+      <tr><td><code>hg diff</code></td><td class="desc">Uncommitted changes</td></tr>
+      <tr><td><code>hg diff -r X -r Y</code></td><td class="desc">Diff two revisions</td></tr>
+      <tr><td><code>hg diff -c REV</code></td><td class="desc">What one changeset changed</td></tr>
+      <tr><td><code>hg annotate &lt;file&gt;</code></td><td class="desc">Blame per line</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>Syncing with Remote</h2>
+    <table>
+      <tr><td><code>hg push</code></td><td class="desc">Push to remote</td></tr>
+      <tr><td><code>hg push -r REV</code></td><td class="desc">Push specific changeset</td></tr>
+      <tr><td><code>hg pull</code></td><td class="desc">Pull from remote</td></tr>
+      <tr><td><code>hg pull -u</code></td><td class="desc">Pull and update</td></tr>
+      <tr><td><code>hg incoming</code></td><td class="desc">Preview incoming changesets</td></tr>
+      <tr><td><code>hg outgoing</code></td><td class="desc">Preview outgoing changesets</td></tr>
+      <tr><td><code>hg paths</code></td><td class="desc">Show configured remotes</td></tr>
+      <tr><td><code>hg shelve</code></td><td class="desc">Stash uncommitted changes</td></tr>
+      <tr><td><code>hg unshelve</code></td><td class="desc">Restore stashed changes</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>Navigating &amp; Branching</h2>
+    <table>
+      <tr><td><code>hg update</code></td><td class="desc">Update to branch tip</td></tr>
+      <tr><td><code>hg update -r REV</code></td><td class="desc">Go to specific revision</td></tr>
+      <tr><td><code>hg heads</code></td><td class="desc">Show branch heads</td></tr>
+      <tr><td><code>hg branch &lt;name&gt;</code></td><td class="desc">Set named branch</td></tr>
+      <tr><td><code>hg branches</code></td><td class="desc">List branches</td></tr>
+      <tr><td><code>hg merge</code></td><td class="desc">Merge other head</td></tr>
+      <tr><td><code>hg resolve --mark</code></td><td class="desc">Mark conflicts resolved</td></tr>
+      <tr><td><code>hg rebase -s REV -d DEST</code></td><td class="desc">Rebase REV + descendants</td></tr>
+      <tr><td><code>hg rebase -r REV -d DEST</code></td><td class="desc">Rebase single REV</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>Rewriting History (evolve)</h2>
+    <table>
+      <tr><td><code>hg amend</code></td><td class="desc">Amend current changeset</td></tr>
+      <tr><td><code>hg amend -m "msg"</code></td><td class="desc">Amend with new message</td></tr>
+      <tr><td><code>hg fold --exact -r X::Y</code></td><td class="desc">Squash changesets into one</td></tr>
+      <tr><td><code>hg fold --from -r REV</code></td><td class="desc">Fold from REV to current</td></tr>
+      <tr><td><code>hg split</code></td><td class="desc">Split changeset into parts</td></tr>
+      <tr><td><code>hg uncommit</code></td><td class="desc">Undo commit, keep changes</td></tr>
+      <tr><td><code>hg prune -r REV</code></td><td class="desc">Discard a changeset</td></tr>
+      <tr><td><code>hg evolve</code></td><td class="desc">Resolve unstable changesets</td></tr>
+    </table>
+    <div class="note"><strong>Draft only.</strong> Demote first: <code>hg phase --draft -f -r REV</code></div>
+  </div>
+
+  <div class="card">
+    <h2>Phases</h2>
+    <table>
+      <tr><td><code>hg phase -r REV</code></td><td class="desc">Show phase</td></tr>
+      <tr><td><code>hg phase --public -r REV</code></td><td class="desc">Mark public (immutable)</td></tr>
+      <tr><td><code>hg phase --draft -f -r REV</code></td><td class="desc">Demote to draft (mutable)</td></tr>
+      <tr><td><code>hg phase --secret -r REV</code></td><td class="desc">Mark secret (never pushed)</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>Revision Syntax</h2>
+    <table>
+      <tr><td><code>.</code></td><td class="desc">Current changeset</td></tr>
+      <tr><td><code>tip</code></td><td class="desc">Latest changeset</td></tr>
+      <tr><td><code>.~1</code> / <code>.~2</code></td><td class="desc">Parent / grandparent</td></tr>
+      <tr><td><code>X::Y</code></td><td class="desc">X to Y (DAG range)</td></tr>
+      <tr><td><code>draft()</code></td><td class="desc">All draft changesets</td></tr>
+      <tr><td><code>obsolete()</code></td><td class="desc">All obsolete changesets</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>Git &rarr; Mercurial</h2>
+    <table>
+      <tr><td><code>git checkout</code></td><td class="desc"><code>hg update</code></td></tr>
+      <tr><td><code>git stash</code></td><td class="desc"><code>hg shelve</code></td></tr>
+      <tr><td><code>git blame</code></td><td class="desc"><code>hg annotate</code></td></tr>
+      <tr><td><code>git rebase -i</code> (squash)</td><td class="desc"><code>hg fold</code></td></tr>
+      <tr><td><code>git commit --amend</code></td><td class="desc"><code>hg amend</code></td></tr>
+      <tr><td><code>git log --graph</code></td><td class="desc"><code>hg log -G</code></td></tr>
+      <tr><td><code>git reset HEAD~1</code></td><td class="desc"><code>hg uncommit</code></td></tr>
+      <tr><td><code>git fetch</code></td><td class="desc"><code>hg pull</code></td></tr>
+      <tr><td><code>git pull</code></td><td class="desc"><code>hg pull -u</code></td></tr>
+    </table>
+  </div>
+
+</div>
+
+</body>
+</html>
